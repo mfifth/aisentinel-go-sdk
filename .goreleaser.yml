@@ -1,12 +1,5 @@
-# Minimal config for Go library - no builds needed
-builds: []
-
-# Archives disabled for library
-archives: []
-
-# Checksums disabled for library
-checksum:
-  disable: true
+# Minimal Go library configuration
+# No builds needed for libraries
 
 # Changelog customization
 changelog:
@@ -24,6 +17,10 @@ release:
   draft: false
   prerelease: auto
   mode: append
+
+# Snapshot allows building without tags
+snapshot:
+  name_template: "{{ incpatch .Version }}-snapshot"
 
 # Snapshot allows building without tags
 snapshot:
