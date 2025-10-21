@@ -21,7 +21,3 @@ release:
 # Snapshot allows building without tags
 snapshot:
   name_template: "{{ incpatch .Version }}-snapshot"
-
-# Snapshot allows building without tags
-snapshot:
-  name_template: "{{ incpatch .Version }}-snapshot"
