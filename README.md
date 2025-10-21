@@ -211,10 +211,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Support
 
-- 📖 [Documentation](https://docs.aisentinel.com/go-sdk)
+- 📖 [Documentation](https://aisentinel.fly.dev/docs)
 - 🐛 [Issue Tracker](https://github.com/mfifth/aisentinel-go-sdk/issues)
-- 💬 [Community Forum](https://community.aisentinel.com)
-- 📧 [Email Support](mailto:support@aisentinel.com)
 
 ## Changelog
 
