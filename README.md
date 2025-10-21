@@ -1,7 +1,7 @@
 # AISentinel Go SDK
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/aisentinel/aisentinel-go-sdk.svg)](https://pkg.go.dev/github.com/aisentinel/aisentinel-go-sdk)
-[![Go Report Card](https://goreportcard.com/badge/github.com/aisentinel/aisentinel-go-sdk)](https://goreportcard.com/report/github.com/aisentinel/aisentinel-go-sdk)
+[![Go Reference](https://pkg.go.dev/badge/github.com/mfifth/aisentinel-go-sdk.svg)](https://pkg.go.dev/github.com/mfifth/aisentinel-go-sdk)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mfifth/aisentinel-go-sdk)](https://goreportcard.com/report/github.com/mfifth/aisentinel-go-sdk)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The official Go SDK for AISentinel, providing comprehensive content moderation and safety evaluation capabilities.
@@ -19,7 +19,7 @@ The official Go SDK for AISentinel, providing comprehensive content moderation a
 ## Installation
 
 ```bash
-go get github.com/aisentinel/aisentinel-go-sdk
+go get github.com/mfifth/aisentinel-go-sdk
 ```
 
 ## Quick Start
@@ -32,7 +32,7 @@ import (
     "fmt"
     "log"
 
-    "github.com/aisentinel/aisentinel-go-sdk"
+    "github.com/mfifth/aisentinel-go-sdk"
 )
 
 func main() {
@@ -212,7 +212,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## Support
 
 - 📖 [Documentation](https://docs.aisentinel.com/go-sdk)
-- 🐛 [Issue Tracker](https://github.com/aisentinel/aisentinel-go-sdk/issues)
+- 🐛 [Issue Tracker](https://github.com/mfifth/aisentinel-go-sdk/issues)
 - 💬 [Community Forum](https://community.aisentinel.com)
 - 📧 [Email Support](mailto:support@aisentinel.com)
 

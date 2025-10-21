@@ -13,9 +13,9 @@ builds:
       - CGO_ENABLED=0
     ldflags:
       - -s -w
-      - -X github.com/aisentinel/aisentinel-go-sdk/version.Version={{.Version}}
-      - -X github.com/aisentinel/aisentinel-go-sdk/version.Commit={{.Commit}}
-      - -X github.com/aisentinel/aisentinel-go-sdk/version.Date={{.Date}}
+      - -X github.com/mfifth/aisentinel-go-sdk/version.Version={{.Version}}
+      - -X github.com/mfifth/aisentinel-go-sdk/version.Commit={{.Commit}}
+      - -X github.com/mfifth/aisentinel-go-sdk/version.Date={{.Date}}
 
 # Archive customization
 archives:
@@ -47,8 +47,12 @@ changelog:
 # Release customization
 release:
   github:
-    owner: aisentinel
+    owner: mfifth
     name: aisentinel-go-sdk
   draft: false
   prerelease: auto
   mode: append
+
+# Snapshot allows building without tags
+snapshot:
+  name_template: "{{ incpatch .Version }}-snapshot"

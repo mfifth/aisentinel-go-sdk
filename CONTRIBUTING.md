@@ -32,7 +32,7 @@ go test ./...
 
 ### 1. Choose an Issue
 
-- Check the [issue tracker](https://github.com/aisentinel/aisentinel-go-sdk/issues) for open issues
+- Check the [issue tracker](https://github.com/mfifth/aisentinel-go-sdk/issues) for open issues
 - Look for issues labeled `good first issue` or `help wanted`
 - Comment on the issue to indicate you're working on it
 

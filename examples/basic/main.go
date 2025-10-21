@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	governor "github.com/aisentinel/aisentinel-go-sdk"
+	governor "github.com/mfifth/aisentinel-go-sdk"
 )
 
 func main() {

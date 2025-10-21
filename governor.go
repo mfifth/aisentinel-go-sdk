@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/aisentinel/aisentinel-go-sdk/storage"
+	"github.com/mfifth/aisentinel-go-sdk/storage"
 )
 
 // ErrOffline indicates the Governor is operating in offline mode.

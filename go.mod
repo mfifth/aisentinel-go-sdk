@@ -1,3 +1,3 @@
-module github.com/aisentinel/aisentinel-go-sdk
+module github.com/mfifth/aisentinel-go-sdk
 
 go 1.21
