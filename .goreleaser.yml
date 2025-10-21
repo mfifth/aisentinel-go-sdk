@@ -1,7 +1,5 @@
 # Minimal Go library configuration
 # No builds needed for libraries
-skip_build: true
-builds: []
 
 # Changelog customization
 changelog:
