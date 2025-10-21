@@ -1,7 +1,27 @@
 # Minimal Go library configuration
 # No builds needed for libraries
+builds: []
 
 # Changelog customization
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+# Release customization
+release:
+  github:
+    owner: mfifth
+    name: aisentinel-go-sdk
+  draft: false
+  prerelease: auto
+  mode: append
+
+# Snapshot allows building without tags
+snapshot:
+  name_template: "{{ incpatch .Version }}-snapshot"
 changelog:
   sort: asc
   filters:
