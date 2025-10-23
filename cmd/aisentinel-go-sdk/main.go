@@ -6,8 +6,11 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 	"time"
 
 	aisentinel "github.com/mfifth/aisentinel-go-sdk"
@@ -96,9 +99,11 @@ func main() {
 	fmt.Println(string(encoded))
 }
 
+const maxPayloadFileBytes int64 = 1 << 20 // 1 MiB
+
 func resolvePayload(inline, path string) (json.RawMessage, error) {
 	if path != "" {
-		data, err := os.ReadFile(path)
+		data, err := loadPayloadFromFile(path)
 		if err != nil {
 			return nil, err
 		}
@@ -121,4 +126,67 @@ func resolvePayload(inline, path string) (json.RawMessage, error) {
 		return nil, errors.New("payload must be valid JSON")
 	}
 	return json.RawMessage(data), nil
+}
+
+func loadPayloadFromFile(path string) ([]byte, error) {
+	if path == "" {
+		return nil, errors.New("payload file path is required")
+	}
+
+	cleaned := filepath.Clean(path)
+
+	var absPath string
+	if filepath.IsAbs(cleaned) {
+		evaluated, err := filepath.EvalSymlinks(cleaned)
+		if err != nil {
+			return nil, fmt.Errorf("resolve payload file: %w", err)
+		}
+		absPath = evaluated
+	} else {
+		cwd, err := os.Getwd()
+		if err != nil {
+			return nil, fmt.Errorf("determine working directory: %w", err)
+		}
+		absPath = filepath.Join(cwd, cleaned)
+	}
+
+	cwd, err := os.Getwd()
+	if err != nil {
+		return nil, fmt.Errorf("determine working directory: %w", err)
+	}
+
+	rel, err := filepath.Rel(cwd, absPath)
+	if err != nil {
+		return nil, fmt.Errorf("resolve payload file: %w", err)
+	}
+	if strings.HasPrefix(rel, ".."+string(os.PathSeparator)) || rel == ".." {
+		return nil, errors.New("payload file must be within the working directory")
+	}
+
+	file, err := os.Open(absPath)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if cerr := file.Close(); cerr != nil {
+			log.Printf("close payload file: %v", cerr)
+		}
+	}()
+
+	info, err := file.Stat()
+	if err != nil {
+		return nil, err
+	}
+	if !info.Mode().IsRegular() {
+		return nil, errors.New("payload file must be a regular file")
+	}
+	if info.Size() > maxPayloadFileBytes {
+		return nil, fmt.Errorf("payload file exceeds %d bytes", maxPayloadFileBytes)
+	}
+
+	data, err := io.ReadAll(io.LimitReader(file, maxPayloadFileBytes))
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
 }
