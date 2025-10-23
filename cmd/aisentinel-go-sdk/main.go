@@ -10,22 +10,19 @@ import (
 
 func main() {
 	// Initialize the client
-	client, err := aisentinel.NewClient(aisentinel.Config{
-		APIKey: "your-api-key-here",
-	})
+	client, err := aisentinel.NewClient("your-api-key-here")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Evaluate content
-	result, err := client.Evaluate(context.Background(), aisentinel.EvaluationRequest{
-		Content:     "Hello, world!",
-		ContentType: aisentinel.ContentTypeText,
+	result, err := client.Evaluate(context.Background(), aisentinel.DecisionRequest{
+		Policy: "default",
+		Input:  "Hello, world!",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Safety Score: %.2f\n", result.Score)
-	fmt.Printf("Approved: %t\n", result.Approved)
+	fmt.Printf("Decision: %s\n", result.Decision)
 }
