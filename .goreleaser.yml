@@ -1,6 +1,20 @@
-# Minimal Go library configuration
-# No builds needed for libraries
-builds: []
+# Build configuration for the CLI binary
+builds:
+  - main: ./cmd/aisentinel-go-sdk
+    binary: aisentinel-go-sdk
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+      - "386"
+    ldflags:
+      - -s -w
+      - -X main.buildVersion={{.Version}}
+      - -X main.buildCommit={{.Commit}}
+      - -X main.buildDate={{.Date}}
 
 # Changelog customization
 changelog:

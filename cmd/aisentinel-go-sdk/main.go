@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/mfifth/aisentinel-go-sdk"
+	"github.com/mfifth/aisentinel-go-sdk/pkg/aisentinel"
 )
 
 func main() {
