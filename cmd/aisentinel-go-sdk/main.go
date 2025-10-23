@@ -135,35 +135,37 @@ func loadPayloadFromFile(path string) ([]byte, error) {
 
 	cleaned := filepath.Clean(path)
 
-	var absPath string
-	if filepath.IsAbs(cleaned) {
-		evaluated, err := filepath.EvalSymlinks(cleaned)
-		if err != nil {
-			return nil, fmt.Errorf("resolve payload file: %w", err)
-		}
-		absPath = evaluated
-	} else {
-		cwd, err := os.Getwd()
-		if err != nil {
-			return nil, fmt.Errorf("determine working directory: %w", err)
-		}
-		absPath = filepath.Join(cwd, cleaned)
-	}
-
 	cwd, err := os.Getwd()
 	if err != nil {
 		return nil, fmt.Errorf("determine working directory: %w", err)
 	}
 
-	rel, err := filepath.Rel(cwd, absPath)
+	base, err := filepath.EvalSymlinks(cwd)
+	if err != nil {
+		return nil, fmt.Errorf("resolve working directory: %w", err)
+	}
+
+	var candidate string
+	if filepath.IsAbs(cleaned) {
+		candidate = cleaned
+	} else {
+		candidate = filepath.Join(base, cleaned)
+	}
+
+	resolved, err := filepath.EvalSymlinks(candidate)
 	if err != nil {
 		return nil, fmt.Errorf("resolve payload file: %w", err)
 	}
-	if strings.HasPrefix(rel, ".."+string(os.PathSeparator)) || rel == ".." {
+
+	rel, err := filepath.Rel(base, resolved)
+	if err != nil {
+		return nil, fmt.Errorf("resolve payload file: %w", err)
+	}
+	if rel == ".." || strings.HasPrefix(rel, ".."+string(os.PathSeparator)) {
 		return nil, errors.New("payload file must be within the working directory")
 	}
 
-	file, err := os.Open(absPath)
+	file, err := os.Open(resolved) // #nosec G304 -- path sanitisation above confines access to the working directory
 	if err != nil {
 		return nil, err
 	}
